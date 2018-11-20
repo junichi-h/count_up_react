@@ -11,7 +11,7 @@ const Button = props => (
     type="button"
     onClick={event => {
       event.preventDefault();
-      console.log('a');
+      props.onClick();
     }}
   >
     {props.label}
