@@ -1,0 +1,264 @@
+{
+  "name": "count_up_react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:junichi-h/count_up_react.git",
+  "author": "Junichi Honda <junichi.hnd@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "concurrently --kill-others --raw \"yarn run dev\"",
+    "dev": "cross-env NODE_ENV=development nodemon --require @babel/register server.js --watch server.js --port 9000",
+    "preprod": "rimraf ./dist",
+    "prod": "cross-env NODE_ENV=prod gulp pug:prod && cross-env NODE_ENV=prod gulp js:prod && gulp build",
+    "server": "browser-sync start -s 'dist'"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions",
+              "safari >= 7"
+            ]
+          }
+        }
+      ],
+      "@babel/preset-flow",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "@babel/plugin-syntax-dynamic-import",
+      [
+        "flow-runtime",
+        {
+          "assert": true,
+          "annotate": true
+        }
+      ]
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-recommended",
+    "rules": {
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global"
+          ]
+        }
+      ]
+    }
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "prettier"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+    },
+    "plugins": [
+      "prettier",
+      "flowtype",
+      "react",
+      "import",
+      "promise",
+      "compat"
+    ],
+    "rules": {
+      "arrow-body-style": "off",
+      "arrow-parens": [
+        "off"
+      ],
+      "class-methods-use-this": "off",
+      "compat/compat": "error",
+      "consistent-return": "off",
+      "comma-dangle": [
+        2,
+        "never"
+      ],
+      "default-case": "off",
+      "generator-star-spacing": "off",
+      "import/no-unresolved": "error",
+      "import/no-extraneous-dependencies": "off",
+      "import/no-named-as-default": "off",
+      "import/prefer-default-export": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+      "new-cap": "off",
+      "no-console": "off",
+      "no-plusplus": "off",
+      "no-use-before-define": "off",
+      "no-multi-assign": "off",
+      "no-param-reassign": "off",
+      "no-unused-expressions": "off",
+      "no-useless-computed-key": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "promise/param-names": "error",
+      "promise/always-return": "error",
+      "promise/catch-or-return": "error",
+      "promise/no-native": "off",
+      "no-underscore-dangle": "off",
+      "react/destructuring-assignment": "off",
+      "react/no-array-index-key": "off",
+      "jsx-a11y/label-has-for": [
+        2,
+        {
+          "components": [
+            "Label"
+          ],
+          "required": {
+            "every": [
+              "id"
+            ]
+          },
+          "allowChildren": false
+        }
+      ],
+      "react/sort-comp": [
+        "error",
+        {
+          "order": [
+            "type-annotations",
+            "static-methods",
+            "lifecycle",
+            "everything-else",
+            "render"
+          ]
+        }
+      ],
+      "react/prop-types": "off",
+      "react/jsx-no-bind": "off",
+      "react/jsx-indent": "off",
+      "react/jsx-filename-extension": [
+        "error",
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "react/prefer-stateless-function": "off",
+      "prettier/prettier": "error"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "allowImportExportEverywhere": true,
+      "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": false
+      }
+    },
+    "settings": {
+      "polyfills": [
+        "promises"
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-stage-0": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-flow-runtime": "^0.17.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "browser-sync": "^2.26.3",
+    "chalk": "^2.4.1",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.1",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-formatter-pretty": "^2.0.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-compat": "^2.6.3",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.86.0",
+    "flow-runtime": "^0.17.0",
+    "flow-typed": "^2.5.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-changed": "^3.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-pug": "^4.0.1",
+    "gulp-size": "^3.0.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-util": "^3.0.8",
+    "husky": "^1.1.4",
+    "node-sass": "^4.10.0",
+    "nodemon": "^1.18.6",
+    "postcss": "^7.0.6",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^1.15.2",
+    "pug": "^2.0.3",
+    "react-dev-utils": "^6.1.1",
+    "react-hot-loader": "^4.3.12",
+    "regenerator-runtime": "^0.13.1",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "stylelint": "^9.8.0",
+    "stylelint-config-recommended": "^2.1.0",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.26.0",
+    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-dev-middleware": "^3.4.0",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "emotion": "^9.2.12",
+    "immer": "^1.8.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-emotion": "^9.2.12",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "ress": "^1.2.2"
+  }
+}
