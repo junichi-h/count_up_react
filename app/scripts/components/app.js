@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
+// 普通のRedux内からstateを取得するときはコメントアウト
+import { createStructuredSelector } from 'reselect';
 
-// import Button from './atoms/button';
 import Layout from './molecules/layout';
-import { onCountUp } from '../actions/countup';
+import { onCountUp, onReset } from '../actions/countup';
+// 普通のRedux内からstateを取得するときはコメントアウト
+import { makeSelectCount } from '../reselect';
 
 class App extends Component {
+  /**
+   * 今のpropsと次に変わるであろうprops（nextProps）を比べて変更がある場合のみにview側にrenderするようにする
+   * @param nextProps
+   * @returns {boolean}
+   */
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;
+  }
+
   render() {
     console.log(this.props);
     // const { onCountUp } = this.props;
@@ -18,18 +29,23 @@ class App extends Component {
           label="unko"
           count={this.props.count}
           onClick={this.props.onCountUp}
+          onReset={this.props.onReset}
         />
       </div>
     );
   }
 }
 
-// const mapStateToProps = createStructuredSelector({});
-const mapStateToProps = state => ({
-  count: state.countup.count
+// relsectからRedux内のstateを取る（理想）差分検知をreselectが自動でやってくれる。
+const mapStateToProps = createStructuredSelector({
+  count: makeSelectCount()
 });
+// 普通のReduxからstateを取るとき。
+/* const mapStateToProps = state => ({
+  count: state.countup.count
+}); */
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ onCountUp }, dispatch);
+  bindActionCreators({ onCountUp, onReset }, dispatch);
 
 export default connect(
   mapStateToProps,
